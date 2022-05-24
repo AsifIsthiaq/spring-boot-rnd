@@ -12,7 +12,6 @@ import java.util.UUID;
 @RestController
 public class PersonController {
     private final PersonService personService;
-    // tesing token
 
     @Autowired
     public PersonController(PersonService personService) {
