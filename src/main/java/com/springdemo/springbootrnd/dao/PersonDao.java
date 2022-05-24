@@ -3,6 +3,7 @@ package com.springdemo.springbootrnd.dao;
 import com.springdemo.springbootrnd.models.Person;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 public interface PersonDao {
@@ -15,4 +16,10 @@ public interface PersonDao {
     }
 
     List<Person> selectAllPeople();
+
+    Optional<Person> selectPersonById(UUID id);
+
+    int deletePersonById(UUID id);
+
+    int updatePersonById(UUID id, Person person);
 }
