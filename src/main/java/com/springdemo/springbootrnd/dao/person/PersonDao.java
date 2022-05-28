@@ -1,4 +1,4 @@
-package com.springdemo.springbootrnd.dao;
+package com.springdemo.springbootrnd.dao.person;
 
 import com.springdemo.springbootrnd.models.Person;
 

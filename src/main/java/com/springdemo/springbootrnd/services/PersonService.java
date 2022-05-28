@@ -1,6 +1,6 @@
 package com.springdemo.springbootrnd.services;
 
-import com.springdemo.springbootrnd.dao.PersonDao;
+import com.springdemo.springbootrnd.dao.person.PersonDao;
 import com.springdemo.springbootrnd.models.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;

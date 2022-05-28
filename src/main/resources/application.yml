@@ -1,6 +1,6 @@
 app:
   datasource:
-    jdbc-url: jdbc:postgresql://localhost:5432/demodb
+    jdbc-url: jdbc:postgresql://localhost:5432/demo2db
     username: postgres
     password: password
     poll-size: 30
