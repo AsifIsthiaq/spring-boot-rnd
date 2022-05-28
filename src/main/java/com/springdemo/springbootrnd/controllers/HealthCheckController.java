@@ -15,7 +15,7 @@ import java.util.UUID;
 public class HealthCheckController {
     @GetMapping()
     public HashMap<String,String> getPersonById() {
-        return new HashMap<String,String>() {{
+        return new HashMap<>() {{
             put("healthCheck","success");
         }};
     }
