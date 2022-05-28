@@ -3,6 +3,7 @@ package com.springdemo.springbootrnd.controllers;
 import com.springdemo.springbootrnd.models.Person;
 import com.springdemo.springbootrnd.services.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,7 +33,7 @@ public class PersonController {
 
     @GetMapping(path = "{id}")
     public Person getPersonById(@PathVariable("id") UUID id) {
-        return personService.getPersonById(id).orElse(null);
+        return personService.getPersonById(id);
     }
 
     @DeleteMapping (path = "{id}")
