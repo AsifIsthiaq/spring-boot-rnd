@@ -3,7 +3,8 @@ package com.springdemo.springbootrnd.controllers;
 import com.springdemo.springbootrnd.models.Person;
 import com.springdemo.springbootrnd.services.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,8 +23,8 @@ public class PersonController {
     }
 
     @PostMapping
-    public int addPerson(@Valid @NonNull @RequestBody Person person) {
-        return personService.addPerson(person);
+    public ResponseEntity<Person> addPerson(@Valid @NonNull @RequestBody Person person) {
+        return new ResponseEntity(personService.addPerson(person), HttpStatus.CREATED);
     }
 
     @GetMapping
@@ -36,13 +37,13 @@ public class PersonController {
         return personService.getPersonById(id);
     }
 
-    @DeleteMapping (path = "{id}")
+    @DeleteMapping(path = "{id}")
     public int deletePersonById(@PathVariable("id") UUID id) {
         return personService.deletePersonById(id);
     }
 
-    @PutMapping  (path = "{id}")
-    public int updatePersonById(@PathVariable("id") UUID id,@Valid @NonNull @RequestBody Person person) {
-        return personService.updatePersonById(id,person);
+    @PutMapping(path = "{id}")
+    public int updatePersonById(@PathVariable("id") UUID id, @Valid @NonNull @RequestBody Person person) {
+        return personService.updatePersonById(id, person);
     }
 }

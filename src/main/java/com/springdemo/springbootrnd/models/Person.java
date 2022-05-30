@@ -6,10 +6,9 @@ import javax.validation.constraints.NotBlank;
 import java.util.UUID;
 
 public class Person {
-    private final UUID id;
-
+    private UUID id;
     @NotBlank
-    private final String name;
+    private String name;
 
     public Person(@JsonProperty("id") UUID id, @JsonProperty("name") String name) {
         this.id = id;
@@ -22,6 +21,14 @@ public class Person {
 
     public String getName() {
         return name;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override
