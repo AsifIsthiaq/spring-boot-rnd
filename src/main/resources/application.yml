@@ -4,3 +4,7 @@ app:
     username: postgres
     password: password
     poll-size: 30
+
+springdoc:
+  swagger-ui:
+    path: /api/v1/
