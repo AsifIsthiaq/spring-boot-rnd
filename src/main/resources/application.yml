@@ -8,3 +8,6 @@ app:
 springdoc:
   swagger-ui:
     path: /api/v1/
+
+jwt:
+  secret: asifisthiaq
