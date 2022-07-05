@@ -15,12 +15,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import com.springdemo.springbootrnd.services.JwtUserDetailsService;
 
-
 import com.springdemo.springbootrnd.util.JwtTokenUtil;
 import com.springdemo.springbootrnd.models.JwtRequest;
 import com.springdemo.springbootrnd.models.JwtResponse;
-
-import javax.validation.Valid;
 
 @RequestMapping("api/v1/auth")
 @RestController
@@ -44,19 +41,6 @@ public class AuthController {
         final String token = jwtTokenUtil.generateToken(userDetails);
         return new ResponseEntity(new JwtResponse(token),HttpStatus.OK);
     }
-
-//    @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
-//    public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
-//
-//        authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
-//
-//        final UserDetails userDetails = userDetailsService
-//                .loadUserByUsername(authenticationRequest.getUsername());
-//
-//        final String token = jwtTokenUtil.generateToken(userDetails);
-//
-//        return ResponseEntity.ok(new JwtResponse(token));
-//    }
 
     private void authenticate(String username, String password) throws Exception {
         try {
