@@ -11,3 +11,5 @@ springdoc:
 
 jwt:
   secret: asifisthiaq
+  accessTokenExpirationDateInMs: 50000
+  refreshTokenExpirationDateInMs: 9000000

@@ -33,7 +33,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
 
         final String requestTokenHeader = request.getHeader("Authorization");
-
+        System.out.println("JwtRequestFilter: doFilterInternal requestTokenHeader-> "+requestTokenHeader);
         String username = null;
         String jwtToken = null;
         // JWT Token is in the form "Bearer token". Remove Bearer word and get
@@ -42,12 +42,17 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             jwtToken = requestTokenHeader.substring(7);
             try {
                 username = jwtTokenUtil.getUsernameFromToken(jwtToken);
+                logger.warn("Valid JWT Token In Header");
             } catch (IllegalArgumentException e) {
                 System.out.println("Unable to get JWT Token");
             } catch (ExpiredJwtException e) {
                 System.out.println("JWT Token has expired");
             }
-        } else {
+        }
+        else if(requestTokenHeader == null){
+            logger.warn("No JWT Token In Header");
+        }
+        else if(!requestTokenHeader.startsWith("Bearer ")) {
             logger.warn("JWT Token does not begin with Bearer String");
         }
 
