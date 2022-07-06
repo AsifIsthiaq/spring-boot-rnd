@@ -24,11 +24,30 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class WebSecurityConfig {
     private final UserDetailsService jwtUserDetailsService;
     private final JwtRequestFilter jwtRequestFilter;
+    private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
+    private static final String[] AUTH_WHITELIST = {
+            // -- Swagger UI v2
+            "/v2/api-docs",
+            "/swagger-resources",
+            "/swagger-resources/**",
+            "/configuration/ui",
+            "/configuration/security",
+            "/swagger-ui.html",
+            "/webjars/**",
+            // -- Swagger UI v3 (OpenAPI)
+            "/v3/api-docs/**",
+            "/swagger-ui/**",
+            // other public endpoints of your API may be appended to this array
+            "/api/v1/auth/**"
+    };
 
     @Autowired
-    public WebSecurityConfig(UserDetailsService jwtUserDetailsService, JwtRequestFilter jwtRequestFilter) {
+    public WebSecurityConfig(UserDetailsService jwtUserDetailsService,
+                             JwtRequestFilter jwtRequestFilter,
+                             JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint) {
         this.jwtUserDetailsService = jwtUserDetailsService;
         this.jwtRequestFilter = jwtRequestFilter;
+        this.jwtAuthenticationEntryPoint = jwtAuthenticationEntryPoint;
     }
 
     @Bean
@@ -36,6 +55,8 @@ public class WebSecurityConfig {
         httpSecurity.csrf().disable()
                 .authorizeHttpRequests((authorizeHttpRequests) -> authorizeHttpRequests
                         .anyRequest().authenticated())
+                .exceptionHandling((exceptionHandling) -> exceptionHandling
+                        .authenticationEntryPoint(jwtAuthenticationEntryPoint))
                 .sessionManagement((sessionManagement) -> sessionManagement
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
@@ -44,15 +65,15 @@ public class WebSecurityConfig {
 
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
-        return (web) -> web.ignoring().antMatchers("/api/v1/auth/**");
+        return (web) -> web.ignoring().antMatchers(AUTH_WHITELIST);
     }
 
-    public void configure(AuthenticationManagerBuilder auth) throws Exception {
-        // configure AuthenticationManager so that it knows from where to load
-        // user for matching credentials
-        // Use BCryptPasswordEncoder
-        auth.userDetailsService(jwtUserDetailsService).passwordEncoder(passwordEncoder());
-    }
+//    public void configure(AuthenticationManagerBuilder auth) throws Exception {
+//        // configure AuthenticationManager so that it knows from where to load
+//        // user for matching credentials
+//        // Use BCryptPasswordEncoder
+//        //auth.userDetailsService(jwtUserDetailsService).passwordEncoder(passwordEncoder());
+//    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {

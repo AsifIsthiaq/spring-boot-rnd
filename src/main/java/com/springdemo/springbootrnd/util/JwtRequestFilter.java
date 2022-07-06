@@ -21,12 +21,14 @@ import io.jsonwebtoken.ExpiredJwtException;
 
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter {
+    private final JwtUserDetailsService jwtUserDetailsService;
+    private final JwtTokenUtil jwtTokenUtil;
 
     @Autowired
-    private JwtUserDetailsService jwtUserDetailsService;
-
-    @Autowired
-    private JwtTokenUtil jwtTokenUtil;
+    public JwtRequestFilter(JwtUserDetailsService jwtUserDetailsService, JwtTokenUtil jwtTokenUtil) {
+        this.jwtUserDetailsService = jwtUserDetailsService;
+        this.jwtTokenUtil = jwtTokenUtil;
+    }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
@@ -43,9 +45,11 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             try {
                 username = jwtTokenUtil.getUsernameFromToken(jwtToken);
                 logger.warn("Valid JWT Token In Header");
-            } catch (IllegalArgumentException e) {
+            }
+            catch (IllegalArgumentException e) {
                 System.out.println("Unable to get JWT Token");
-            } catch (ExpiredJwtException e) {
+            }
+            catch (ExpiredJwtException e) {
                 System.out.println("JWT Token has expired");
             }
         }
