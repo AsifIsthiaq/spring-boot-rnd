@@ -1,9 +1,10 @@
 package com.springdemo.springbootrnd.exception;
 
-import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
@@ -25,6 +26,34 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         ApiError apiError = new ApiError(NOT_FOUND, 404, "The requested resource was not found", ex);
         System.out.println("Exception occurred: "+apiError);
         return new ResponseEntity(apiError, NOT_FOUND);
+    }
+
+    /**
+     * Handles UsernameNotFoundException. Triggered when username is not found.
+     *
+     * @param ex the UsernameNotFoundException
+     * @return the ApiError object
+     */
+    @ExceptionHandler(UsernameNotFoundException.class)
+    protected ResponseEntity<Object> handleUsernameNotFound(
+            UsernameNotFoundException ex) {
+        ApiError apiError = new ApiError(NOT_FOUND, 404, "User not found", ex);
+        System.out.println("Exception occurred: "+apiError);
+        return new ResponseEntity(apiError, NOT_FOUND);
+    }
+
+    /**
+     * Handles BadCredentialsException. Triggered when username or password is incorrect.
+     *
+     * @param ex the BadCredentialsException
+     * @return the ApiError object
+     */
+    @ExceptionHandler(BadCredentialsException.class)
+    protected ResponseEntity<Object> handleBadCredentials(
+            BadCredentialsException ex) {
+        ApiError apiError = new ApiError(UNAUTHORIZED, 401, "Incorrect username or password", ex);
+        System.out.println("Exception occurred: "+apiError);
+        return new ResponseEntity(apiError, UNAUTHORIZED);
     }
 
     /**
