@@ -65,7 +65,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(AuthenticationException.class)
     protected ResponseEntity<Object> handleExpiredJwt(
             AuthenticationException ex) {
-        ApiError apiError = new ApiError(UNAUTHORIZED, 401, "Missing Authorization Header", ex);
+        ApiError apiError = new ApiError(UNAUTHORIZED, 401, "Invalid token", ex);
         System.out.println("Exception occurred: "+apiError);
         return new ResponseEntity(apiError, UNAUTHORIZED);
     }
