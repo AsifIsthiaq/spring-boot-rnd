@@ -36,7 +36,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         String path = request.getRequestURI();
         // logger.info("path: " + path);
         for (String ignoredPath : WebSecurityConfig.AUTH_WHITELIST) {
-            if (ignoredPath.equals(path)) {
+            if (path.contains(ignoredPath)) {
                 logger.info("not applying custom filter to: " + path);
                 return true;
             }
