@@ -1,23 +1,23 @@
 package com.springdemo.springbootrnd.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
 public class JwtRequest implements Serializable {
 
     private static final long serialVersionUID = 5926468583005150707L;
-
+    @NotBlank
     private String username;
+    @NotBlank
     private String password;
 
     //need default constructor for JSON Parsing
-    public JwtRequest()
+    public JwtRequest(@JsonProperty("username") String username, @JsonProperty("password") String password)
     {
-
-    }
-
-    public JwtRequest(String username, String password) {
-        this.setUsername(username);
-        this.setPassword(password);
+        this.username = username;
+        this.password = password;
     }
 
     public String getUsername() {

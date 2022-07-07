@@ -23,7 +23,7 @@ public class PersonController {
     }
 
     @PostMapping
-    public ResponseEntity<Person> addPerson(@Valid @NonNull @RequestBody Person person) {
+    public ResponseEntity<Person> addPerson(@Valid @NonNull @RequestBody Person person) throws Exception {
         return new ResponseEntity(personService.addPerson(person), HttpStatus.CREATED);
     }
 
