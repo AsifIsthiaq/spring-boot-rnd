@@ -13,6 +13,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 import com.springdemo.springbootrnd.services.JwtUserDetailsService;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -34,7 +35,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         String path = request.getRequestURI();
         logger.info("path: " + path);
         for (String ignoredPath : WebSecurityConfig.AUTH_WHITELIST) {
-            if (ignoredPath.equals(path)){
+            if (ignoredPath.equals(path)) {
                 logger.info("ignoring: " + path);
                 return true;
             }
@@ -45,31 +46,20 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws ServletException, IOException {
-        final String requestTokenHeader = request.getHeader("Authorization");
-        System.out.println("JwtRequestFilter: doFilterInternal requestTokenHeader-> " + requestTokenHeader);
         String username = null;
-        String jwtToken = null;
-        // JWT Token is in the form "Bearer token". Remove Bearer word and get
-        // only the Token
-        if (requestTokenHeader != null && requestTokenHeader.startsWith("Bearer ")) {
-            jwtToken = requestTokenHeader.substring(7);
-            try {
-                username = jwtTokenUtil.getUsernameFromToken(jwtToken);
-                logger.info("Valid JWT Token In Header");
-            } catch (IllegalArgumentException e) {
-                logger.warn("Unable to get JWT Token");
-            } catch (ExpiredJwtException e) {
-                logger.warn("JWT Token has expired");
-            }
-        } else if (requestTokenHeader == null) {
-            logger.warn("No JWT Token In Header");
-        } else if (!requestTokenHeader.startsWith("Bearer ")) {
-            logger.warn("JWT Token does not begin with Bearer String");
+        String jwtToken = extractJwtFromRequest(request);
+        System.out.println("JwtRequestFilter: doFilterInternal jwtToken-> " + jwtToken);
+        try {
+            username = jwtTokenUtil.getUsernameFromToken(jwtToken);
+            logger.info("Valid JWT Token In Header");
+        } catch (IllegalArgumentException e) {
+            logger.warn("Unable to get JWT Token");
+        } catch (ExpiredJwtException e) {
+            logger.warn("JWT Token has expired");
         }
 
         // Once we get the token validate it.
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-
             UserDetails userDetails = this.jwtUserDetailsService.loadUserByUsername(username);
             // if token is valid configure Spring Security to manually set
             // authentication
@@ -87,4 +77,15 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         chain.doFilter(request, response);
     }
 
+    private String extractJwtFromRequest(HttpServletRequest request) {
+        String bearerToken = request.getHeader("Authorization");
+        if (StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {
+            return bearerToken.substring(7);
+        } else if (bearerToken == null) {
+            logger.warn("No JWT Token In Header");
+        } else if (!bearerToken.startsWith("Bearer ")) {
+            logger.warn("JWT Token does not begin with Bearer String");
+        }
+        return null;
+    }
 }

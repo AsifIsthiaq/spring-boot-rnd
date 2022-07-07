@@ -30,7 +30,7 @@ public class AuthController {
     @Autowired
     public AuthController(AuthenticationManager authenticationManager,
                           JwtTokenUtil jwtTokenUtil,
-                          JwtUserDetailsService userDetailsService){
+                          JwtUserDetailsService userDetailsService) {
         this.authenticationManager = authenticationManager;
         this.jwtTokenUtil = jwtTokenUtil;
         this.userDetailsService = userDetailsService;
@@ -41,8 +41,9 @@ public class AuthController {
         authenticate(request.getUsername(), request.getPassword());
         final UserDetails userDetails = userDetailsService
                 .loadUserByUsername(request.getUsername());
-        final String token = jwtTokenUtil.generateToken(userDetails);
-        return new ResponseEntity(new JwtResponse(token),HttpStatus.OK);
+        final String accessToken = jwtTokenUtil.generateAccessToken(userDetails);
+        final String refreshToken = jwtTokenUtil.generateRefreshToken(userDetails);
+        return new ResponseEntity(new JwtResponse(accessToken, refreshToken), HttpStatus.OK);
     }
 
     private void authenticate(String username, String password) throws Exception {
