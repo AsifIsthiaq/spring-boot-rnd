@@ -36,7 +36,7 @@ public class WebSecurityConfig {
             "/v3/api-docs/swagger-config",
             // other public endpoints
             "/health",
-            "/api/v1/auth/login"
+            "/api/auth/login"
     };
 
     @Autowired

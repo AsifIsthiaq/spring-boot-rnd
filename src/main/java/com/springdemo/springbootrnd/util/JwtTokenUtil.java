@@ -46,6 +46,11 @@ public class JwtTokenUtil implements Serializable {
         return getClaimFromToken(token, Claims::getExpiration);
     }
 
+    //retrieve token type from jwt token
+    public String getTypeFromToken(String token) {
+        return getAllClaimsFromToken(token).get("type").toString();
+    }
+
     public <T> T getClaimFromToken(String token, Function<Claims, T> claimsResolver) {
         final Claims claims = getAllClaimsFromToken(token);
         return claimsResolver.apply(claims);
@@ -80,13 +85,13 @@ public class JwtTokenUtil implements Serializable {
     //   compaction of the JWT to a URL-safe string
     private String doGenerateAccessToken(Map<String, Object> claims, String subject) {
         return Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + accessTokenExpirationDateInMs))
+                .setExpiration(new Date(System.currentTimeMillis() + accessTokenExpirationDateInMs)).claim("type","access")
                 .signWith(SignatureAlgorithm.HS512, secret).compact();
     }
 
     private String doGenerateRefreshToken(Map<String, Object> claims, String subject) {
         return Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + refreshTokenExpirationDateInMs))
+                .setExpiration(new Date(System.currentTimeMillis() + refreshTokenExpirationDateInMs)).claim("type","refresh")
                 .signWith(SignatureAlgorithm.HS512, secret).compact();
     }
 

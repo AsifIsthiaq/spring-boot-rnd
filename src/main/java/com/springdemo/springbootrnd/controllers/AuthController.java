@@ -19,7 +19,7 @@ import com.springdemo.springbootrnd.util.JwtTokenUtil;
 import com.springdemo.springbootrnd.models.JwtRequest;
 import com.springdemo.springbootrnd.models.JwtResponse;
 
-@RequestMapping("api/v1/auth")
+@RequestMapping("api/auth")
 @RestController
 @CrossOrigin
 public class AuthController {
@@ -41,6 +41,16 @@ public class AuthController {
         authenticate(request.getUsername(), request.getPassword());
         final UserDetails userDetails = userDetailsService
                 .loadUserByUsername(request.getUsername());
+        final String accessToken = jwtTokenUtil.generateAccessToken(userDetails);
+        final String refreshToken = jwtTokenUtil.generateRefreshToken(userDetails);
+        return new ResponseEntity(new JwtResponse(accessToken, refreshToken), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/refresh")
+    public ResponseEntity<JwtResponse> refresh(@RequestAttribute String username) throws Exception {
+        System.out.println("refresh controller username: " + username);
+        final UserDetails userDetails = userDetailsService
+                .loadUserByUsername(username);
         final String accessToken = jwtTokenUtil.generateAccessToken(userDetails);
         final String refreshToken = jwtTokenUtil.generateRefreshToken(userDetails);
         return new ResponseEntity(new JwtResponse(accessToken, refreshToken), HttpStatus.OK);

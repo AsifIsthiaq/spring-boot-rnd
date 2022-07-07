@@ -22,6 +22,7 @@ import io.jsonwebtoken.ExpiredJwtException;
 public class JwtRequestFilter extends OncePerRequestFilter {
     private final JwtUserDetailsService jwtUserDetailsService;
     private final JwtTokenUtil jwtTokenUtil;
+    private final String refreshTokenApi = "/api/auth/refresh";
 
     @Autowired
     public JwtRequestFilter(JwtUserDetailsService jwtUserDetailsService, JwtTokenUtil jwtTokenUtil) {
@@ -33,10 +34,10 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     protected boolean shouldNotFilter(HttpServletRequest request)
             throws ServletException {
         String path = request.getRequestURI();
-        logger.info("path: " + path);
+        // logger.info("path: " + path);
         for (String ignoredPath : WebSecurityConfig.AUTH_WHITELIST) {
             if (ignoredPath.equals(path)) {
-                logger.info("ignoring: " + path);
+                logger.info("not applying custom filter to: " + path);
                 return true;
             }
         }
@@ -46,35 +47,66 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws ServletException, IOException {
-        String username = null;
+        String path = request.getRequestURI();
+        logger.info("doFilterInternal path: " + path);
+        String username = null, type = null;
         String jwtToken = extractJwtFromRequest(request);
-        System.out.println("JwtRequestFilter: doFilterInternal jwtToken-> " + jwtToken);
+        Boolean exceptionOccurred = false;
+        logger.info("JwtRequestFilter: doFilterInternal jwtToken-> " + jwtToken);
         try {
             username = jwtTokenUtil.getUsernameFromToken(jwtToken);
-            logger.info("Valid JWT Token In Header");
+            type = jwtTokenUtil.getTypeFromToken(jwtToken);
+            logger.info("Valid JWT Token In Header username: " + username);
+            logger.info("token type: " + type);
         } catch (IllegalArgumentException e) {
+            exceptionOccurred = true;
             logger.warn("Unable to get JWT Token");
         } catch (ExpiredJwtException e) {
+            exceptionOccurred = true;
             logger.warn("JWT Token has expired");
         }
 
-        // Once we get the token validate it.
-        if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            UserDetails userDetails = this.jwtUserDetailsService.loadUserByUsername(username);
-            // if token is valid configure Spring Security to manually set
-            // authentication
-            if (jwtTokenUtil.validateToken(jwtToken, userDetails)) {
-                UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
-                        userDetails, null, userDetails.getAuthorities());
-                usernamePasswordAuthenticationToken
-                        .setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                // After setting the Authentication in the context, we specify
-                // that the current user is authenticated. So it passes the
-                // Spring Security Configurations successfully.
-                SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+        if (!exceptionOccurred) {
+            if (shouldHandleReqWithAccessToken(type, username, path)) {
+                logger.info("Handling request with access token");
+                // if token is valid configure Spring Security to manually set
+                // authentication
+                validateTokenAndSetAuthentication(jwtToken, username, request);
+            } else if (shouldHandleReqWithRefreshToken(type, username, path)) {
+                logger.info("Handling request with refresh token");
+                validateTokenAndSetAuthentication(jwtToken, username, request);
+                request.setAttribute("username", username);
             }
         }
         chain.doFilter(request, response);
+    }
+
+    private void validateTokenAndSetAuthentication(String jwtToken, String username, HttpServletRequest request) {
+        UserDetails userDetails = this.jwtUserDetailsService.loadUserByUsername(username);
+        if (jwtTokenUtil.validateToken(jwtToken, userDetails)) {
+            UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
+                    userDetails, null, userDetails.getAuthorities());
+            usernamePasswordAuthenticationToken
+                    .setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+            // After setting the Authentication in the context, we specify
+            // that the current user is authenticated. So it passes the
+            // Spring Security Configurations successfully.
+            SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+        }
+    }
+
+    private boolean shouldHandleReqWithAccessToken(String type, String username, String path) {
+        return type.equals("access") &&
+                !path.equals(refreshTokenApi) &&
+                username != null &&
+                SecurityContextHolder.getContext().getAuthentication() == null;
+    }
+
+    private boolean shouldHandleReqWithRefreshToken(String type, String username, String path) {
+        return type.equals("refresh") &&
+                path.equals(refreshTokenApi) &&
+                username != null &&
+                SecurityContextHolder.getContext().getAuthentication() == null;
     }
 
     private String extractJwtFromRequest(HttpServletRequest request) {
