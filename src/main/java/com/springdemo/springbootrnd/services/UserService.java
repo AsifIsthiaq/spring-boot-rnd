@@ -30,4 +30,8 @@ public class UserService {
         System.out.println("Password after encryption " + user.getPassword());
         return userDao.addUser(user);
     }
+
+    public List<User> getUsers(){
+        return this.userDao.getUsers();
+    }
 }

@@ -9,7 +9,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "USERS")
-@JsonIgnoreProperties(value = { "id" })
+@JsonIgnoreProperties(value = {"id"})
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -31,11 +31,13 @@ public class User {
     public User() {
     }
 
-    public User(@JsonProperty("userId") UUID userId,
+    public User(Long id,
+                @JsonProperty("userId") UUID userId,
                 @JsonProperty("fullName") String fullName,
                 @JsonProperty("password") String password,
                 @JsonProperty("email") String email,
                 @JsonProperty("phone") String phone) {
+        this.id = id;
         this.userId = userId;
         this.fullName = fullName;
         this.password = password;

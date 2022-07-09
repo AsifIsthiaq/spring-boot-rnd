@@ -1,5 +1,7 @@
 package com.springdemo.springbootrnd.controllers;
 
+import com.springdemo.springbootrnd.converters.UserConverter;
+import com.springdemo.springbootrnd.dto.UserDto;
 import com.springdemo.springbootrnd.models.Person;
 import com.springdemo.springbootrnd.models.User;
 import com.springdemo.springbootrnd.services.PersonService;
@@ -18,15 +20,26 @@ import java.util.UUID;
 @RestController
 public class UserController {
     private UserService userService;
+    private UserConverter userConverter;
 
     @Autowired
-    public UserController(UserService userService){
+    public UserController(UserService userService, UserConverter userConverter) {
         this.userService = userService;
+        this.userConverter = userConverter;
     }
 
     @PostMapping(value = "/register")
-    public ResponseEntity<User> registerUser(@Valid @NonNull @RequestBody User user) throws Exception {
-        System.out.println("ReqBody /register "+user);
-        return new ResponseEntity(userService.registerUser(user), HttpStatus.CREATED);
+    public ResponseEntity<UserDto> registerUser(@Valid @NonNull @RequestBody User user) throws Exception {
+        System.out.println("ReqBody /register " + user);
+        return new ResponseEntity(
+                userConverter.entityToDto(userService.registerUser(user)),
+                HttpStatus.CREATED);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<UserDto>> getUsers() {
+        return new ResponseEntity(
+                userConverter.entityToDto(userService.getUsers()),
+                HttpStatus.OK);
     }
 }

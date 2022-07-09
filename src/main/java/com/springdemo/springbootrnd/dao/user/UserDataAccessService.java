@@ -33,7 +33,16 @@ public class UserDataAccessService implements UserDao {
 
     @Override
     public List<User> getUsers() {
-        return null;
+        final String sql = "SELECT * FROM users";
+        return jdbcTemplate.query(sql, (resultSet, i) -> {
+            long id = Long.parseLong(resultSet.getString("id"));
+            UUID user_id = UUID.fromString(resultSet.getString("user_id"));
+            String fullName = resultSet.getString("full_name");
+            String password = resultSet.getString("password");
+            String email = resultSet.getString("email");
+            String phone = resultSet.getString("phone");
+            return new User(id, user_id, fullName, password, email, phone);
+        });
     }
 
     @Override
