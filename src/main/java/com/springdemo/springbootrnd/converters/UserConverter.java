@@ -2,7 +2,7 @@ package com.springdemo.springbootrnd.converters;
 
 import com.springdemo.springbootrnd.dto.UserDto;
 import com.springdemo.springbootrnd.models.User;
-import org.modelmapper.ModelMapper;
+import com.springdemo.springbootrnd.util.Utility;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -11,8 +11,7 @@ import java.util.stream.Collectors;
 @Component
 public class UserConverter {
     public UserDto entityToDto(User user) {
-        ModelMapper mapper = new ModelMapper();
-        UserDto map = mapper.map(user, UserDto.class);
+        UserDto map = Utility.getModelMapper().map(user, UserDto.class);
         return map;
     }
 
@@ -20,10 +19,8 @@ public class UserConverter {
         return users.stream().map(x -> entityToDto(x)).collect(Collectors.toList());
     }
 
-
     public User dtoToEntity(UserDto dto) {
-        ModelMapper mapper = new ModelMapper();
-        User map = mapper.map(dto, User.class);
+        User map = Utility.getModelMapper().map(dto, User.class);
         return map;
     }
 
