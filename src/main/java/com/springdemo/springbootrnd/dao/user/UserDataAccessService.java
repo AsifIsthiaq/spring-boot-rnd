@@ -43,7 +43,7 @@ public class UserDataAccessService implements UserDao {
 
     @Override
     public User selectUserById(UUID userId) {
-        final String sql = "SELECT * FROM users where id = ?";
+        final String sql = "SELECT * FROM users where user_id = ?";
         Object[] obj = new Object[]{userId};
         User user = jdbcTemplate.queryForObject(sql, (resultSet, i) -> {
             return UserUtility.getUserFromResultSet(resultSet);

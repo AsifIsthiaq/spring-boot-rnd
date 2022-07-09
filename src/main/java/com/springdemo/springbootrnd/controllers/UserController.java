@@ -42,4 +42,11 @@ public class UserController {
                 userConverter.entityToDto(userService.getUsers()),
                 HttpStatus.OK);
     }
+
+    @GetMapping(path = "{id}")
+    public ResponseEntity<UserDto> getUserById(@PathVariable("id") UUID id) {
+        return new ResponseEntity(
+                userConverter.entityToDto(userService.getUserById(id)),
+                HttpStatus.OK);
+    }
 }
