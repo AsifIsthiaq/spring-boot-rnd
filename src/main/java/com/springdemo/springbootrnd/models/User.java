@@ -16,6 +16,9 @@ public class User {
     private Long id;
     @Column(name = "user_id", length = 100, nullable = false, unique = true)
     private UUID userId;
+    @Column(name = "username", length = 100, nullable = false, unique = true)
+    @NotBlank
+    private String username;
     @Column(name = "full_name", length = 100, nullable = false)
     @NotBlank
     private String fullName;
@@ -33,12 +36,14 @@ public class User {
 
     public User(Long id,
                 @JsonProperty("userId") UUID userId,
+                @JsonProperty("username") String username,
                 @JsonProperty("fullName") String fullName,
                 @JsonProperty("password") String password,
                 @JsonProperty("email") String email,
                 @JsonProperty("phone") String phone) {
         this.id = id;
         this.userId = userId;
+        this.username = username;
         this.fullName = fullName;
         this.password = password;
         this.email = email;
@@ -55,6 +60,14 @@ public class User {
 
     public void setUserId(UUID userId) {
         this.userId = userId;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getFullName() {
@@ -94,6 +107,7 @@ public class User {
         return "User{" +
                 "id=" + id +
                 ", userId=" + userId +
+                ", username='" + username + '\'' +
                 ", fullName='" + fullName + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +

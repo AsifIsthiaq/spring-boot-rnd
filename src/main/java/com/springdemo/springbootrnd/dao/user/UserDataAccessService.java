@@ -20,11 +20,12 @@ public class UserDataAccessService implements UserDao {
 
     @Override
     public User insertUser(User user) {
-        final String sql = "INSERT INTO users (user_id, full_name, password, email, phone) VALUES (?, ?, ?, ?, ?)";
+        final String sql = "INSERT INTO users (user_id, username, password, full_name, email, phone) VALUES (?, ?, ?, ?, ?, ?)";
         int n = jdbcTemplate.update(sql,
                 user.getUserId(),
-                user.getFullName(),
+                user.getUsername(),
                 user.getPassword(),
+                user.getFullName(),
                 user.getEmail(),
                 user.getPhone());
         System.out.println("New user insertion ->" + n);
