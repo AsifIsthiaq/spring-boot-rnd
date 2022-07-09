@@ -1,6 +1,7 @@
 package com.springdemo.springbootrnd.dao.user;
 
 import com.springdemo.springbootrnd.models.User;
+import com.springdemo.springbootrnd.util.UserUtility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -32,22 +33,22 @@ public class UserDataAccessService implements UserDao {
     }
 
     @Override
-    public List<User> getUsers() {
+    public List<User> selectAllUsers() {
         final String sql = "SELECT * FROM users";
         return jdbcTemplate.query(sql, (resultSet, i) -> {
-            long id = Long.parseLong(resultSet.getString("id"));
-            UUID user_id = UUID.fromString(resultSet.getString("user_id"));
-            String fullName = resultSet.getString("full_name");
-            String password = resultSet.getString("password");
-            String email = resultSet.getString("email");
-            String phone = resultSet.getString("phone");
-            return new User(id, user_id, fullName, password, email, phone);
+            return UserUtility.getUserFromResultSet(resultSet);
         });
     }
 
     @Override
     public User selectUserById(UUID userId) {
-        return null;
+        final String sql = "SELECT * FROM users where id = ?";
+        Object[] obj = new Object[]{userId};
+        User user = jdbcTemplate.queryForObject(sql, (resultSet, i) -> {
+            return UserUtility.getUserFromResultSet(resultSet);
+        }, obj);
+        System.out.println("After querying selectUserById: " + user);
+        return user;
     }
 
     @Override

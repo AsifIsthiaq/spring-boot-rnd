@@ -1,6 +1,7 @@
 package com.springdemo.springbootrnd.services;
 
 import com.springdemo.springbootrnd.dao.user.UserDao;
+import com.springdemo.springbootrnd.models.Person;
 import com.springdemo.springbootrnd.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -31,7 +32,11 @@ public class UserService {
         return userDao.addUser(user);
     }
 
-    public List<User> getUsers(){
-        return this.userDao.getUsers();
+    public List<User> getUsers() {
+        return this.userDao.selectAllUsers();
+    }
+
+    public User getUserById(UUID id) {
+        return userDao.selectUserById(id);
     }
 }

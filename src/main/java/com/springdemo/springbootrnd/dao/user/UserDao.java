@@ -13,7 +13,7 @@ public interface UserDao {
         return insertUser(user);
     }
 
-    List<User> getUsers();
+    List<User> selectAllUsers();
 
     User selectUserById(UUID userId);
 
