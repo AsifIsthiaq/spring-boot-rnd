@@ -1,41 +1,94 @@
 package com.springdemo.springbootrnd.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-
-import javax.validation.constraints.NotBlank;
+import javax.persistence.*;
 import java.util.UUID;
 
+@Entity
+@Table(name = "USERS")
 public class User {
-    private UUID id;
-    @NotBlank
-    private String name;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+    @Column(name = "user_id", length = 100, nullable = false, unique = true)
+    private UUID userId;
+    @Column(name = "full_name", length = 100, nullable = false)
+    private String fullName;
+    @Column(name = "password", length = 100, nullable = false)
+    private String password;
+    @Column(name = "email", length = 100, nullable = false, unique = true)
+    private String email;
+    @Column(name = "phone", length = 100, nullable = true, unique = true)
+    private String phone;
 
-    public User(@JsonProperty("id") UUID id, @JsonProperty("name") String name) {
-        this.id = id;
-        this.name = name;
+    public User() {
     }
 
-    public UUID getId() {
+    public User(@JsonProperty("userId") UUID userId,
+                @JsonProperty("fullName") String fullName,
+                @JsonProperty("password") String password,
+                @JsonProperty("email") String email,
+                @JsonProperty("phone") String phone) {
+        this.userId = userId;
+        this.fullName = fullName;
+        this.password = password;
+        this.email = email;
+        this.phone = phone;
+    }
+
+    public Long getId() {
         return id;
     }
 
-    public String getName() {
-        return name;
+    public UUID getUserId() {
+        return userId;
     }
 
-    public void setId(UUID id) {
-        this.id = id;
+    public void setUserId(UUID userId) {
+        this.userId = userId;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
+                ", userId=" + userId +
+                ", fullName='" + fullName + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
                 '}';
     }
 }
