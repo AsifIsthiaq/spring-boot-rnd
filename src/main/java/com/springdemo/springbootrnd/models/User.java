@@ -30,6 +30,8 @@ public class User {
     private String email;
     @Column(name = "phone", length = 100, nullable = true, unique = true)
     private String phone;
+    @Column(name = "photo", length = 100, nullable = true)
+    private String photo;
 
     public User() {
     }
@@ -40,7 +42,8 @@ public class User {
                 @JsonProperty("fullName") String fullName,
                 @JsonProperty("password") String password,
                 @JsonProperty("email") String email,
-                @JsonProperty("phone") String phone) {
+                @JsonProperty("phone") String phone,
+                @JsonProperty("photo") String photo) {
         this.id = id;
         this.userId = userId;
         this.username = username;
@@ -48,6 +51,7 @@ public class User {
         this.password = password;
         this.email = email;
         this.phone = phone;
+        this.photo = photo;
     }
 
     public Long getId() {
@@ -102,6 +106,14 @@ public class User {
         this.phone = phone;
     }
 
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -112,6 +124,7 @@ public class User {
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +
+                ", photo='" + photo + '\'' +
                 '}';
     }
 }

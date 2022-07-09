@@ -16,6 +16,7 @@ public class UserUtility {
         String password = resultSet.getString("password");
         String email = resultSet.getString("email");
         String phone = resultSet.getString("phone");
-        return new User(id, user_id, username, fullName, password, email, phone);
+        String photo = resultSet.getString("photo");
+        return new User(id, user_id, username, fullName, password, email, phone, photo);
     }
 }
