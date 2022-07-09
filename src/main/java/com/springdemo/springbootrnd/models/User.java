@@ -1,5 +1,6 @@
 package com.springdemo.springbootrnd.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
@@ -8,6 +9,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "USERS")
+@JsonIgnoreProperties(value = { "id" })
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
