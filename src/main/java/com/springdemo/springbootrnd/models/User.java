@@ -1,7 +1,9 @@
 package com.springdemo.springbootrnd.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.UUID;
 
 @Entity
@@ -13,10 +15,13 @@ public class User {
     @Column(name = "user_id", length = 100, nullable = false, unique = true)
     private UUID userId;
     @Column(name = "full_name", length = 100, nullable = false)
+    @NotBlank
     private String fullName;
     @Column(name = "password", length = 100, nullable = false)
+    @NotBlank
     private String password;
     @Column(name = "email", length = 100, nullable = false, unique = true)
+    @NotBlank
     private String email;
     @Column(name = "phone", length = 100, nullable = true, unique = true)
     private String phone;

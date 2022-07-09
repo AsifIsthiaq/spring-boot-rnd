@@ -18,15 +18,19 @@ import org.springframework.web.servlet.HandlerExceptionResolver;
 public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint, Serializable {
 
     private static final long serialVersionUID = -7858869558953243875L;
-    @Autowired
-    @Qualifier("handlerExceptionResolver")
     private HandlerExceptionResolver resolver;
+
+    @Autowired
+    public JwtAuthenticationEntryPoint(@Qualifier("handlerExceptionResolver") HandlerExceptionResolver resolver) {
+        this.resolver = resolver;
+    }
 
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response,
                          AuthenticationException authException) throws IOException {
         System.out.println("JwtAuthenticationEntryPoint: commence");
         System.out.println(authException);
+        System.out.println(request);
         //response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
         resolver.resolveException(request, response, null, authException);
     }
