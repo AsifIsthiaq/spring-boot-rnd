@@ -53,6 +53,17 @@ public class UserDataAccessService implements UserDao {
     }
 
     @Override
+    public User selectUserByUsername(String username) {
+        final String sql = "SELECT * FROM users where username = ?";
+        Object[] obj = new Object[]{username};
+        User user = jdbcTemplate.queryForObject(sql, (resultSet, i) -> {
+            return UserUtility.getUserFromResultSet(resultSet);
+        }, obj);
+        System.out.println("After querying selectUserById: " + user);
+        return user;
+    }
+
+    @Override
     public int deleteUserById(UUID userId) {
         return 0;
     }
