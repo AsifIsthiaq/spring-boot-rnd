@@ -1,8 +1,8 @@
 package com.springdemo.springbootrnd.controllers;
 
-import java.util.Objects;
-
-import com.springdemo.springbootrnd.models.Person;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +23,8 @@ import javax.validation.Valid;
 
 @RequestMapping("api/auth")
 @RestController
-@CrossOrigin
+//@CrossOrigin
+@Tag(name = "Auth", description = "The Auth API. Contains all the operations for authentication & new token generation.")
 public class AuthController {
     private final AuthenticationManager authenticationManager;
     private final JwtTokenUtil jwtTokenUtil;
@@ -48,6 +49,8 @@ public class AuthController {
         return new ResponseEntity(new JwtResponse(accessToken, refreshToken), HttpStatus.OK);
     }
 
+    @Operation(summary = "", description = "Get new access & refresh tokens")
+    @SecurityRequirement(name = "Bearer Authentication")
     @GetMapping(value = "/refresh")
     public ResponseEntity<JwtResponse> refresh(@RequestAttribute String username) throws Exception {
         System.out.println("refresh controller username: " + username);

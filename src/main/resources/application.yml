@@ -19,5 +19,5 @@ app:
 
 jwt:
   secret: asifisthiaq
-  accessTokenExpirationDateInMs: 60000
+  accessTokenExpirationDateInMs: 120000
   refreshTokenExpirationDateInMs: 300000

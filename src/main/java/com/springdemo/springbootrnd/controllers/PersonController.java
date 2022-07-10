@@ -2,6 +2,8 @@ package com.springdemo.springbootrnd.controllers;
 
 import com.springdemo.springbootrnd.models.Person;
 import com.springdemo.springbootrnd.services.PersonService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +16,8 @@ import java.util.UUID;
 
 @RequestMapping("api/person")
 @RestController
+@SecurityRequirement(name = "Bearer Authentication")
+@Tag(name = "Person", description = "The Person API. Contains all the operations that can be performed on a person.")
 public class PersonController {
     private final PersonService personService;
 
