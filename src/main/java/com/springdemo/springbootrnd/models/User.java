@@ -2,6 +2,7 @@ package com.springdemo.springbootrnd.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -15,6 +16,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @Column(name = "user_id", length = 100, nullable = false, unique = true)
+    @Schema(accessMode = Schema.AccessMode.READ_ONLY)
     private UUID userId;
     @Column(name = "username", length = 100, nullable = false, unique = true)
     @NotBlank
@@ -28,9 +30,9 @@ public class User {
     @Column(name = "email", length = 100, nullable = false, unique = true)
     @NotBlank
     private String email;
-    @Column(name = "phone", length = 100, nullable = true, unique = true)
+    @Column(name = "phone", length = 100)
     private String phone;
-    @Column(name = "photo", length = 100, nullable = true)
+    @Column(name = "photo", length = 100)
     private String photo;
 
     public User() {

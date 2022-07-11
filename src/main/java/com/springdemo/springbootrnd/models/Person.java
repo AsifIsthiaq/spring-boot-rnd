@@ -1,11 +1,13 @@
 package com.springdemo.springbootrnd.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 import javax.validation.constraints.NotBlank;
 import java.util.UUID;
 
 public class Person {
+    @Schema(accessMode = Schema.AccessMode.READ_ONLY)
     private UUID id;
     @NotBlank
     private String name;
