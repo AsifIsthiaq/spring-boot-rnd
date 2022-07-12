@@ -67,7 +67,7 @@ public class UserDataAccessService implements UserDao {
     }
 
     @Override
-    public void checkIfUsernameAlreadyExists(String username) throws UserAlreadyExistException {
+    public void checkIfUsernameAlreadyExists(String username) throws DataAccessException, UserAlreadyExistException {
         final String sql = "SELECT * FROM users where username = ?";
         Object[] obj = new Object[]{username};
         try {
