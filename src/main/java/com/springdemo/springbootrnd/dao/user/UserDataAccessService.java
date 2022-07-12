@@ -1,8 +1,10 @@
 package com.springdemo.springbootrnd.dao.user;
 
+import com.springdemo.springbootrnd.exception.UserAlreadyExistException;
 import com.springdemo.springbootrnd.models.User;
 import com.springdemo.springbootrnd.util.UserUtility;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -60,8 +62,23 @@ public class UserDataAccessService implements UserDao {
         User user = jdbcTemplate.queryForObject(sql, (resultSet, i) -> {
             return UserUtility.getUserFromResultSet(resultSet);
         }, obj);
-        System.out.println("After querying selectUserById: " + user);
+        System.out.println("After querying selectUserByUsername: " + user);
         return user;
+    }
+
+    @Override
+    public void checkIfUsernameAlreadyExists(String username) throws UserAlreadyExistException {
+        final String sql = "SELECT * FROM users where username = ?";
+        Object[] obj = new Object[]{username};
+        try {
+            User user = jdbcTemplate.queryForObject(sql, (resultSet, i) -> {
+                return UserUtility.getUserFromResultSet(resultSet);
+            }, obj);
+            System.out.println("checkIfUsernameAlreadyExists: " + user);
+            throw new UserAlreadyExistException("User already exists please use a different username", new Throwable());
+        } catch (DataAccessException e) {
+            System.out.println("checkIfUsernameAlreadyExists exception occurred: " + e);
+        }
     }
 
     @Override

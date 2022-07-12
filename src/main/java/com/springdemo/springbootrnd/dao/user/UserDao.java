@@ -19,6 +19,8 @@ public interface UserDao {
 
     User selectUserByUsername(String username);
 
+    void checkIfUsernameAlreadyExists(String username);
+
     int deleteUserById(UUID userId);
 
     int updateUserById(UUID userId, User user);

@@ -24,6 +24,7 @@ public class UserService {
     }
 
     public User registerUser(User user) {
+        this.userDao.checkIfUsernameAlreadyExists(user.getUsername());
         System.out.println("Password before encryption " + user.getPassword());
         String encryptedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encryptedPassword);

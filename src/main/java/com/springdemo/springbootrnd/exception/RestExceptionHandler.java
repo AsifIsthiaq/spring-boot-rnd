@@ -24,7 +24,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     protected ResponseEntity<Object> handleEmptyResultDataAccess(
             EmptyResultDataAccessException ex) {
         ApiError apiError = new ApiError(NOT_FOUND, 404, "The requested resource was not found", ex);
-        System.out.println("Exception occurred: "+apiError);
+        System.out.println("Exception occurred: " + apiError);
         return new ResponseEntity(apiError, NOT_FOUND);
     }
 
@@ -38,7 +38,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     protected ResponseEntity<Object> handleUsernameNotFound(
             UsernameNotFoundException ex) {
         ApiError apiError = new ApiError(NOT_FOUND, 404, "User not found", ex);
-        System.out.println("Exception occurred: "+apiError);
+        System.out.println("Exception occurred: " + apiError);
         return new ResponseEntity(apiError, NOT_FOUND);
     }
 
@@ -52,7 +52,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     protected ResponseEntity<Object> handleBadCredentials(
             BadCredentialsException ex) {
         ApiError apiError = new ApiError(UNAUTHORIZED, 401, "Incorrect username or password", ex);
-        System.out.println("Exception occurred: "+apiError);
+        System.out.println("Exception occurred: " + apiError);
         return new ResponseEntity(apiError, UNAUTHORIZED);
     }
 
@@ -63,10 +63,24 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
      * @return the ApiError object
      */
     @ExceptionHandler(AuthenticationException.class)
-    protected ResponseEntity<Object> handleExpiredJwt(
+    protected ResponseEntity<Object> handleExpiredJwtException(
             AuthenticationException ex) {
         ApiError apiError = new ApiError(UNAUTHORIZED, 401, "Invalid token", ex);
-        System.out.println("Exception occurred: "+apiError);
+        System.out.println("Exception occurred: " + apiError);
         return new ResponseEntity(apiError, UNAUTHORIZED);
+    }
+
+    /**
+     * Handles UserAlreadyExistException. Triggered when trying to register a user with a username that already exists.
+     *
+     * @param ex the UserAlreadyExistException
+     * @return the ApiError object
+     */
+    @ExceptionHandler(UserAlreadyExistException.class)
+    protected ResponseEntity<Object> UserAlreadyExistException(
+            UserAlreadyExistException ex) {
+        ApiError apiError = new ApiError(OK, 200, "Username already exists", ex);
+        System.out.println("Exception occurred: " + apiError);
+        return new ResponseEntity(apiError, OK);
     }
 }
