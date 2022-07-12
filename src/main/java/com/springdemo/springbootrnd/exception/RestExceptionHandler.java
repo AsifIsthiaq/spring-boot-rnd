@@ -51,9 +51,9 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(BadCredentialsException.class)
     protected ResponseEntity<Object> handleBadCredentials(
             BadCredentialsException ex) {
-        ApiError apiError = new ApiError(UNAUTHORIZED, 401, "Incorrect username or password", ex);
+        ApiError apiError = new ApiError(FORBIDDEN, 403, "Incorrect username or password", ex);
         System.out.println("Exception occurred: " + apiError);
-        return new ResponseEntity(apiError, UNAUTHORIZED);
+        return new ResponseEntity(apiError, FORBIDDEN);
     }
 
     /**

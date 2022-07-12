@@ -6,6 +6,7 @@ import com.springdemo.springbootrnd.util.UserUtility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -56,14 +57,19 @@ public class UserDataAccessService implements UserDao {
     }
 
     @Override
-    public User selectUserByUsername(String username) {
+    public User selectUserByUsername(String username) throws BadCredentialsException, DataAccessException {
         final String sql = "SELECT * FROM users where username = ?";
         Object[] obj = new Object[]{username};
-        User user = jdbcTemplate.queryForObject(sql, (resultSet, i) -> {
-            return UserUtility.getUserFromResultSet(resultSet);
-        }, obj);
-        System.out.println("After querying selectUserByUsername: " + user);
-        return user;
+        try {
+            User user = jdbcTemplate.queryForObject(sql, (resultSet, i) -> {
+                return UserUtility.getUserFromResultSet(resultSet);
+            }, obj);
+            System.out.println("After querying selectUserByUsername: " + user);
+            return user;
+        } catch (DataAccessException e) {
+            System.out.println("selectUserByUsername exception occurred: " + e);
+            throw new BadCredentialsException("Incorrect username or password", e);
+        }
     }
 
     @Override
