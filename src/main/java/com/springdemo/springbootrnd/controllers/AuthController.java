@@ -14,7 +14,7 @@ import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
-import com.springdemo.springbootrnd.services.JwtUserDetailsService;
+import com.springdemo.springbootrnd.services.CustomUserDetailsService;
 
 import com.springdemo.springbootrnd.util.JwtTokenUtil;
 import com.springdemo.springbootrnd.models.JwtRequest;
@@ -30,13 +30,13 @@ public class AuthController {
     private final AuthenticationManager authenticationManager;
     private final CustomAuthenticationManager customAuthenticationManager;
     private final JwtTokenUtil jwtTokenUtil;
-    private final JwtUserDetailsService userDetailsService;
+    private final CustomUserDetailsService userDetailsService;
 
     @Autowired
     public AuthController(AuthenticationManager authenticationManager,
                           CustomAuthenticationManager customAuthenticationManager,
                           JwtTokenUtil jwtTokenUtil,
-                          JwtUserDetailsService userDetailsService) {
+                          CustomUserDetailsService userDetailsService) {
         this.authenticationManager = authenticationManager;
         this.customAuthenticationManager = customAuthenticationManager;
         this.jwtTokenUtil = jwtTokenUtil;

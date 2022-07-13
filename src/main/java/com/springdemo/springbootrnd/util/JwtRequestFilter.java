@@ -15,18 +15,18 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
-import com.springdemo.springbootrnd.services.JwtUserDetailsService;
+import com.springdemo.springbootrnd.services.CustomUserDetailsService;
 import io.jsonwebtoken.ExpiredJwtException;
 
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter {
-    private final JwtUserDetailsService jwtUserDetailsService;
+    private final CustomUserDetailsService customUserDetailsService;
     private final JwtTokenUtil jwtTokenUtil;
     private final String refreshTokenApi = "/api/auth/refresh";
 
     @Autowired
-    public JwtRequestFilter(JwtUserDetailsService jwtUserDetailsService, JwtTokenUtil jwtTokenUtil) {
-        this.jwtUserDetailsService = jwtUserDetailsService;
+    public JwtRequestFilter(CustomUserDetailsService customUserDetailsService, JwtTokenUtil jwtTokenUtil) {
+        this.customUserDetailsService = customUserDetailsService;
         this.jwtTokenUtil = jwtTokenUtil;
     }
 
@@ -82,7 +82,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     }
 
     private void validateTokenAndSetAuthentication(String jwtToken, String username, HttpServletRequest request) {
-        UserDetails userDetails = this.jwtUserDetailsService.loadUserByUsername(username);
+        UserDetails userDetails = this.customUserDetailsService.loadUserByUsername(username);
         if (jwtTokenUtil.validateToken(jwtToken, userDetails)) {
             UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
                     userDetails, null, userDetails.getAuthorities());
