@@ -1,5 +1,6 @@
 package com.springdemo.springbootrnd.controllers;
 
+import com.springdemo.springbootrnd.config.CustomAuthenticationManager;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -27,14 +28,17 @@ import javax.validation.Valid;
 @Tag(name = "Auth", description = "The Auth API. Contains all the operations for authentication & new token generation.")
 public class AuthController {
     private final AuthenticationManager authenticationManager;
+    private final CustomAuthenticationManager customAuthenticationManager;
     private final JwtTokenUtil jwtTokenUtil;
     private final JwtUserDetailsService userDetailsService;
 
     @Autowired
     public AuthController(AuthenticationManager authenticationManager,
+                          CustomAuthenticationManager customAuthenticationManager,
                           JwtTokenUtil jwtTokenUtil,
                           JwtUserDetailsService userDetailsService) {
         this.authenticationManager = authenticationManager;
+        this.customAuthenticationManager = customAuthenticationManager;
         this.jwtTokenUtil = jwtTokenUtil;
         this.userDetailsService = userDetailsService;
     }
@@ -63,7 +67,8 @@ public class AuthController {
 
     private void authenticate(String username, String password) throws Exception {
         try {
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+//           authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+            customAuthenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
         } catch (DisabledException e) {
             throw new Exception("USER_DISABLED", e);
         } catch (BadCredentialsException e) {

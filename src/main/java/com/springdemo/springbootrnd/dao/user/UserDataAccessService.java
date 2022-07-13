@@ -68,7 +68,7 @@ public class UserDataAccessService implements UserDao {
             return user;
         } catch (DataAccessException e) {
             System.out.println("selectUserByUsername exception occurred: " + e);
-            throw new BadCredentialsException("Incorrect username or password", e);
+            throw new BadCredentialsException("Wrong username", e);
         }
     }
 
