@@ -16,6 +16,9 @@ app:
 #springdoc:
 #  swagger-ui:
 #    path: /api/v1/
+springdoc:
+  swagger-ui:
+    defaultModelsExpandDepth: -1
 
 jwt:
   secret: asifisthiaq
