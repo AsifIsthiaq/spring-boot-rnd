@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import com.springdemo.springbootrnd.services.CustomUserDetailsService;
 
 import com.springdemo.springbootrnd.util.JwtTokenUtil;
-import com.springdemo.springbootrnd.models.JwtRequest;
+import com.springdemo.springbootrnd.models.LoginRequest;
 import com.springdemo.springbootrnd.models.JwtResponse;
 
 import javax.validation.Valid;
@@ -44,7 +44,7 @@ public class AuthController {
     }
 
     @PostMapping(value = "/login")
-    public ResponseEntity<JwtResponse> login(@Valid @NonNull @RequestBody JwtRequest request) throws Exception {
+    public ResponseEntity<JwtResponse> login(@Valid @NonNull @RequestBody LoginRequest request) throws Exception {
         authenticate(request.getUsername(), request.getPassword());
         final UserDetails userDetails = userDetailsService
                 .loadUserByUsername(request.getUsername());
