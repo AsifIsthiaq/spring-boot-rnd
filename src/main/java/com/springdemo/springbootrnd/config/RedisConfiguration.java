@@ -22,9 +22,11 @@ public class RedisConfiguration {
 
     @Bean
     public LettuceConnectionFactory redisConnectionFactory() {
-        RedisStandaloneConfiguration saConfig = new RedisStandaloneConfiguration(hostName, port);
-        saConfig.setPassword(password);
-        return new LettuceConnectionFactory();
+        RedisStandaloneConfiguration redisConfig = new RedisStandaloneConfiguration();
+        redisConfig.setHostName(hostName);
+        redisConfig.setPort(port);
+        redisConfig.setPassword(password);
+        return new LettuceConnectionFactory(redisConfig);
     }
 
     @Bean
