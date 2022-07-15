@@ -59,6 +59,8 @@ public class AuthController {
         return new ResponseEntity(new JwtResponse(accessToken, refreshToken), HttpStatus.OK);
     }
 
+    @Operation(summary = "", description = "Revoke token")
+    @SecurityRequirement(name = "Bearer Authentication")
     @PostMapping(value = "/logout")
     public ResponseEntity<LogoutResponse> logout(@RequestHeader Map<String, String> headers) {
         String bearerToken = headers.get("authorization").substring(7);
