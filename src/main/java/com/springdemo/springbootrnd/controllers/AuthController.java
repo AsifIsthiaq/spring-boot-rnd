@@ -1,6 +1,8 @@
 package com.springdemo.springbootrnd.controllers;
 
 import com.springdemo.springbootrnd.config.CustomAuthenticationManager;
+import com.springdemo.springbootrnd.dao.caching.RedisDataAccessService;
+import com.springdemo.springbootrnd.models.LogoutResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -21,6 +23,7 @@ import com.springdemo.springbootrnd.models.LoginRequest;
 import com.springdemo.springbootrnd.models.JwtResponse;
 
 import javax.validation.Valid;
+import java.util.Map;
 
 @RequestMapping("api/auth")
 @RestController
@@ -31,16 +34,19 @@ public class AuthController {
     private final CustomAuthenticationManager customAuthenticationManager;
     private final JwtTokenUtil jwtTokenUtil;
     private final CustomUserDetailsService userDetailsService;
+    private RedisDataAccessService redisDataAccessService;
 
     @Autowired
     public AuthController(AuthenticationManager authenticationManager,
                           CustomAuthenticationManager customAuthenticationManager,
                           JwtTokenUtil jwtTokenUtil,
-                          CustomUserDetailsService userDetailsService) {
+                          CustomUserDetailsService userDetailsService,
+                          RedisDataAccessService redisDataAccessService) {
         this.authenticationManager = authenticationManager;
         this.customAuthenticationManager = customAuthenticationManager;
         this.jwtTokenUtil = jwtTokenUtil;
         this.userDetailsService = userDetailsService;
+        this.redisDataAccessService = redisDataAccessService;
     }
 
     @PostMapping(value = "/login")
@@ -51,6 +57,14 @@ public class AuthController {
         final String accessToken = jwtTokenUtil.generateAccessToken(userDetails);
         final String refreshToken = jwtTokenUtil.generateRefreshToken(userDetails);
         return new ResponseEntity(new JwtResponse(accessToken, refreshToken), HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/logout")
+    public ResponseEntity<LogoutResponse> logout(@RequestHeader Map<String, String> headers) {
+        String bearerToken = headers.get("authorization").substring(7);
+        this.redisDataAccessService.save(bearerToken, true);
+        System.out.println(bearerToken);
+        return new ResponseEntity(new LogoutResponse("Token revoked"), HttpStatus.OK);
     }
 
     @Operation(summary = "", description = "Get new access & refresh tokens")

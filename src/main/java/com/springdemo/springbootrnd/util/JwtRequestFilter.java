@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.springdemo.springbootrnd.config.WebSecurityConfig;
+import com.springdemo.springbootrnd.dao.caching.RedisDataAccessService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -22,12 +23,15 @@ import io.jsonwebtoken.ExpiredJwtException;
 public class JwtRequestFilter extends OncePerRequestFilter {
     private final CustomUserDetailsService customUserDetailsService;
     private final JwtTokenUtil jwtTokenUtil;
+    private RedisDataAccessService redisDataAccessService;
     private final String refreshTokenApi = "/api/auth/refresh";
+    private final String logoutApi = "/api/auth/logout";
 
     @Autowired
-    public JwtRequestFilter(CustomUserDetailsService customUserDetailsService, JwtTokenUtil jwtTokenUtil) {
+    public JwtRequestFilter(CustomUserDetailsService customUserDetailsService, JwtTokenUtil jwtTokenUtil, RedisDataAccessService redisDataAccessService) {
         this.customUserDetailsService = customUserDetailsService;
         this.jwtTokenUtil = jwtTokenUtil;
+        this.redisDataAccessService = redisDataAccessService;
     }
 
     @Override
@@ -60,7 +64,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             logger.info("token type: " + type);
         } catch (IllegalArgumentException e) {
             exceptionOccurred = true;
-            logger.warn("Unable to get JWT Token");
+            logger.warn("Unable to get JWT Token or Token is blacklisted");
         } catch (ExpiredJwtException e) {
             exceptionOccurred = true;
             logger.warn("JWT Token has expired");
@@ -104,19 +108,25 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
     private boolean shouldHandleReqWithRefreshToken(String type, String username, String path) {
         return type.equals("refresh") &&
-                path.equals(refreshTokenApi) &&
+                (path.equals(refreshTokenApi) || path.equals(logoutApi)) &&
                 username != null &&
                 SecurityContextHolder.getContext().getAuthentication() == null;
     }
 
     private String extractJwtFromRequest(HttpServletRequest request) {
         String bearerToken = request.getHeader("Authorization");
-        if (StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {
+        if (StringUtils.hasText(bearerToken) &&
+                bearerToken.startsWith("Bearer ") &&
+                !this.redisDataAccessService.isTokenBlacklisted(bearerToken.substring(7))
+        ) {
             return bearerToken.substring(7);
         } else if (bearerToken == null) {
             logger.warn("No JWT Token In Header");
         } else if (!bearerToken.startsWith("Bearer ")) {
             logger.warn("JWT Token does not begin with Bearer String");
+        }
+        else if(this.redisDataAccessService.isTokenBlacklisted(bearerToken.substring(7))){
+            logger.warn("JWT Token is blacklisted");
         }
         return null;
     }
