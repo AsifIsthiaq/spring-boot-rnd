@@ -11,7 +11,6 @@ import org.springframework.context.annotation.ComponentScan;
 @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
 @OpenAPIDefinition(info = @Info(title = "Spring Boot API", version = "1.0.1", description = "This is a Demo Application built using Spring Boot & Postgres."))
 @EnableCaching
-//@ComponentScan(basePackages = {"com.springdemo.springbootrnd.services", "com.springdemo.springbootrnd.dao.user"})
 //@ComponentScan(basePackages = "com.springdemo.springbootrnd.services")
 public class SpringBootRndApplication {
     public static void main(String[] args) {
