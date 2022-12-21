@@ -10,7 +10,7 @@ import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
 //@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
-@OpenAPIDefinition(info = @Info(title = "Spring Boot API", version = "1.0.1", description = "This is a Demo Application built using Spring Boot & Postgres."))
+@OpenAPIDefinition(info = @Info(title = "Spring Boot API", version = "1.0.1", description = "This is a Demo Application built using Spring Boot, Postgres & Redis."))
 @EnableCaching
 //@ComponentScan(basePackages = "com.springdemo.springbootrnd.services")
 public class SpringBootRndApplication {
