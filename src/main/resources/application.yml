@@ -6,11 +6,16 @@
 #    poll-size: 30
 # postgres://rltdyjwprnwnah:c70bb8c0a5a88317295959d2b9239342a0b98e30656ea600271f8019af1e13a9@ec2-34-233-115-14.compute-1.amazonaws.com:5432/d46avir9fc39u1
 # heroku postgres credentials
+#jdbc-url: jdbc:postgresql://ec2-34-233-115-14.compute-1.amazonaws.com:5432/d46avir9fc39u1
+#username: rltdyjwprnwnah
+#password: c70bb8c0a5a88317295959d2b9239342a0b98e30656ea600271f8019af1e13a9
+#poll-size: 30
+#elephant sql postgres credentials
 app:
   datasource:
-    jdbc-url: jdbc:postgresql://ec2-34-233-115-14.compute-1.amazonaws.com:5432/d46avir9fc39u1
-    username: rltdyjwprnwnah
-    password: c70bb8c0a5a88317295959d2b9239342a0b98e30656ea600271f8019af1e13a9
+    jdbc-url: jdbc:postgres://rzumhkcr:I1-LaJHad14Mo8m4YIbQMoqUrOtrOOXS@tiny.db.elephantsql.com/rzumhkcr
+    username: rzumhkcr
+    password: I1-LaJHad14Mo8m4YIbQMoqUrOtrOOXS
     poll-size: 30
 
 #springdoc:
