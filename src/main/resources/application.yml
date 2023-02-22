@@ -31,6 +31,7 @@ app:
 #    path: /api/v1/
 springdoc:
   swagger-ui:
+    path: /
     defaultModelsExpandDepth: -1
 
 jwt:
