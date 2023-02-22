@@ -1,13 +1,25 @@
 package com.springdemo.springbootrnd.models;
 
 public class HealthCheckResponse {
-    private Boolean success;
+    private String status = "Running";
+    private String version;
+    private String javaVersion;
 
-    public HealthCheckResponse(Boolean success) {
-        this.success = success;
+    public HealthCheckResponse(String version, String javaVersion) {
+        this.version = version;
+        this.javaVersion = javaVersion;
+        System.out.println("api-version: " + version);
     }
 
-    public Boolean getSuccess() {
-        return success;
+    public String getStatus() {
+        return status;
+    }
+
+    public String getVersion() {
+        return version;
+    }
+
+    public String getJavaVersion() {
+        return javaVersion;
     }
 }

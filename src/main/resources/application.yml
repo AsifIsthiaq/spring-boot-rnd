@@ -7,9 +7,11 @@
 
 #elephant sql postgres credentials
 app:
+  version: [project.version]
+  java-version: [java.version]
   datasource:
 #    jdbc-url: jdbc:postgresql://localhost:5432/demo2db
-#    username: postgres
+#    username: postgresR
 #    password: password
     jdbc-url: jdbc:postgresql://tiny.db.elephantsql.com:5432/rzumhkcr
     username: rzumhkcr
