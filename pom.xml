@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.springdemo</groupId>
     <artifactId>spring-boot-rnd</artifactId>
-    <version>1.0.3</version>
+    <version>1.0.4</version>
     <name>spring-boot-rnd</name>
     <description>spring-boot-rnd</description>
     <properties>
