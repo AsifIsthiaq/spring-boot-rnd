@@ -55,7 +55,7 @@ jwt:
 
 spring:
   redis:
-    host: redis-14762.c212.ap-south-1-1.ec2.cloud.redislabs.com
-    port: 14762
+    host: redis-14856.c212.ap-south-1-1.ec2.cloud.redislabs.com
+    port: 14856
     expire: 300
-    password: LkOpk4VkZagAaLnHZ0kMS5Tj2eZ3l6zA
+    password: MvXJkqsL7gAVTsNPJZeZB4Hy2CwtTpZ5
