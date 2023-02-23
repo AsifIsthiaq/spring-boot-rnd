@@ -132,6 +132,7 @@
                 </configuration>
             </plugin>
         </plugins>
+        <finalName>spring-boot-rnd</finalName>
     </build>
 
 </project>
