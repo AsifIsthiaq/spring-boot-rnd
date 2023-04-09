@@ -16,7 +16,8 @@ app:
     jdbc-url: jdbc:postgresql://tiny.db.elephantsql.com:5432/rzumhkcr
     username: rzumhkcr
     password: I1-LaJHad14Mo8m4YIbQMoqUrOtrOOXS
-    poll-size: 30
+    pool-size: 30
+
 
 #app:
 #  datasource:
@@ -55,7 +56,11 @@ jwt:
 
 spring:
   redis:
-    host: redis-14856.c212.ap-south-1-1.ec2.cloud.redislabs.com
-    port: 14856
+    host: redis-19314.c264.ap-south-1-1.ec2.cloud.redislabs.com
+    port: 19314
     expire: 300
-    password: MvXJkqsL7gAVTsNPJZeZB4Hy2CwtTpZ5
+    password: RSQhT85qftTGMwQjAewpePqGooD5v8rW
+
+
+server:
+  port: 8081
