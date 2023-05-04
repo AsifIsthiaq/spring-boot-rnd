@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.springdemo.springbootrnd.config.WebSecurityConfig;
 import com.springdemo.springbootrnd.dao.caching.RedisDataAccessService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -21,11 +23,12 @@ import io.jsonwebtoken.ExpiredJwtException;
 
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter {
+    Logger logger = LogManager.getLogger(JwtRequestFilter.class);
     private final CustomUserDetailsService customUserDetailsService;
     private final JwtTokenUtil jwtTokenUtil;
     private RedisDataAccessService redisDataAccessService;
-    private final String refreshTokenApi = "/api/auth/refresh";
-    private final String logoutApi = "/api/auth/logout";
+    private final String refreshTokenApi = "/api/v1/auth/refresh";
+    private final String logoutApi = "/api/v1/auth/logout";
 
     @Autowired
     public JwtRequestFilter(CustomUserDetailsService customUserDetailsService, JwtTokenUtil jwtTokenUtil, RedisDataAccessService redisDataAccessService) {
@@ -69,7 +72,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             exceptionOccurred = true;
             logger.warn("JWT Token has expired");
         }
-
+        logger.warn("exceptionOccurred "+ exceptionOccurred);
         if (!exceptionOccurred) {
             if (shouldHandleReqWithAccessToken(type, username, path)) {
                 logger.info("Handling request with access token");

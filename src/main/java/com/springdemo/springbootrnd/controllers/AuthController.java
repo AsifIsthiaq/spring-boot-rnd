@@ -22,11 +22,15 @@ import com.springdemo.springbootrnd.models.JwtResponse;
 import javax.validation.Valid;
 import java.util.Map;
 
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+
 @RequestMapping("api/v1/auth")
 @RestController
 //@CrossOrigin
 @Tag(name = "Auth", description = "The Auth API. Contains all the operations for authentication & new token generation.")
 public class AuthController {
+    Logger logger = LogManager.getLogger(AuthController.class);
     private final AuthenticationManager authenticationManager;
     private final JwtTokenUtil jwtTokenUtil;
     private final CustomUserDetailsService customUserDetailsService;
@@ -59,7 +63,7 @@ public class AuthController {
     public ResponseEntity<LogoutResponse> logout(@RequestHeader Map<String, String> headers) {
         String bearerToken = headers.get("authorization").substring(7);
         this.redisDataAccessService.save(bearerToken, true);
-        System.out.println(bearerToken);
+        logger.info("Blacklisting Token " + bearerToken);
         return new ResponseEntity(new LogoutResponse("Token revoked"), HttpStatus.OK);
     }
 
@@ -67,7 +71,7 @@ public class AuthController {
     @SecurityRequirement(name = "Bearer Authentication")
     @GetMapping(value = "/refresh")
     public ResponseEntity<JwtResponse> refresh(@RequestAttribute String username) throws Exception {
-        System.out.println("refresh controller username: " + username);
+        logger.info("refresh controller username: " + username);
         final UserDetails userDetails = customUserDetailsService
                 .loadUserByUsername(username);
         final String accessToken = jwtTokenUtil.generateAccessToken(userDetails);
