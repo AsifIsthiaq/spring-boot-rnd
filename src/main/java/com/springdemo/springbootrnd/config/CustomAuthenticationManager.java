@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
+//@Component
 public class CustomAuthenticationManager implements AuthenticationManager {
     private UserDao userDao;
     private PasswordEncoder passwordEncoder;
@@ -28,22 +28,23 @@ public class CustomAuthenticationManager implements AuthenticationManager {
 
     @Override
     public Authentication authenticate(Authentication authentication) throws BadCredentialsException, AuthenticationException {
-        User user = userDao.selectUserByUsername(authentication.getName());
-        if (user != null) {
-            if (passwordEncoder.matches(authentication.getCredentials().toString(), user.getPassword())) {
-                List<GrantedAuthority> grantedAuthorityList = new ArrayList<>();
-                /**
-                for (Role role : user.get().getRoleSet()) {
-                    grantedAuthorityList.add(new SimpleGrantedAuthority(role.getName()));
-                }
-                 */
-                return new UsernamePasswordAuthenticationToken(authentication.getPrincipal(), authentication.getCredentials(), grantedAuthorityList);
-            } else {
-                throw new BadCredentialsException("Wrong password");
-            }
-        } else {
-            throw new BadCredentialsException("Wrong username");
-        }
+//        User user = userDao.selectUserByUsername(authentication.getName());
+//        if (user != null) {
+//            if (passwordEncoder.matches(authentication.getCredentials().toString(), user.getPassword())) {
+//                List<GrantedAuthority> grantedAuthorityList = new ArrayList<>();
+//                /**
+//                for (Role role : user.get().getRoleSet()) {
+//                    grantedAuthorityList.add(new SimpleGrantedAuthority(role.getName()));
+//                }
+//                 */
+//                return new UsernamePasswordAuthenticationToken(authentication.getPrincipal(), authentication.getCredentials(), grantedAuthorityList);
+//            } else {
+//                throw new BadCredentialsException("Wrong password");
+//            }
+//        } else {
+//            throw new BadCredentialsException("Wrong username");
+//        }
+        throw new BadCredentialsException("Wrong username");
     }
 
 }

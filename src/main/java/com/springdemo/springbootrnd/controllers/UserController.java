@@ -19,7 +19,7 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.UUID;
 
-@RequestMapping("api/user")
+@RequestMapping("api/v1/user")
 @RestController
 @Tag(name = "User", description = "The User API. Contains all the operations that can be performed on a user.")
 public class UserController {
