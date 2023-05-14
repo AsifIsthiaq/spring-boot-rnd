@@ -25,7 +25,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class WebSecurityConfig {
     private final CustomUserDetailsService customUserDetailsService;
     private final JwtRequestFilter jwtRequestFilter;
-    private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
+    private final DelegatedAuthenticationEntryPoint delegatedAuthenticationEntryPoint;
     public static final String[] AUTH_WHITELIST = {
             "/*.html",
             "/favicon.ico",
@@ -46,10 +46,10 @@ public class WebSecurityConfig {
     @Autowired
     public WebSecurityConfig(CustomUserDetailsService customUserDetailsService,
                              JwtRequestFilter jwtRequestFilter,
-                             JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint) {
+                             DelegatedAuthenticationEntryPoint delegatedAuthenticationEntryPoint) {
         this.customUserDetailsService = customUserDetailsService;
         this.jwtRequestFilter = jwtRequestFilter;
-        this.jwtAuthenticationEntryPoint = jwtAuthenticationEntryPoint;
+        this.delegatedAuthenticationEntryPoint = delegatedAuthenticationEntryPoint;
     }
 
     @Bean
@@ -61,10 +61,8 @@ public class WebSecurityConfig {
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider())
                 .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class)
-                .sessionManagement((sessionManagement) -> sessionManagement
-                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .exceptionHandling((exceptionHandling) -> exceptionHandling
-                        .authenticationEntryPoint(jwtAuthenticationEntryPoint));
+                        .authenticationEntryPoint(delegatedAuthenticationEntryPoint));
         return httpSecurity.build();
     }
 
