@@ -154,3 +154,17 @@ Caused by: java.net.UnknownHostException: tiny.db.elephantsql.com
 	at org.postgresql.core.v3.ConnectionFactoryImpl.tryConnect(ConnectionFactoryImpl.java:109) ~[postgresql-42.3.5.jar:42.3.5]
 	at org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFactoryImpl.java:235) ~[postgresql-42.3.5.jar:42.3.5]
 	... 118 more
+[INFO ] 2023-05-15 00:00:52.648 [restartedMain] SpringBootRndApplication - Starting SpringBootRndApplication using Java 11.0.8 on Asifs-MBP with PID 6728 (/Users/asif/My_Mac_New/Spring Boot/spring-boot-rnd/target/classes started by asif in /Users/asif/My_Mac_New/Spring Boot/spring-boot-rnd)
+[INFO ] 2023-05-15 00:00:52.655 [restartedMain] SpringBootRndApplication - No active profile set, falling back to 1 default profile: "default"
+[INFO ] 2023-05-15 00:00:55.154 [restartedMain] HikariDataSource - HikariPool-1 - Starting...
+[INFO ] 2023-05-15 00:00:59.517 [restartedMain] HikariDataSource - HikariPool-1 - Start completed.
+[INFO ] 2023-05-15 00:01:12.191 [restartedMain] SpringBootRndApplication - Started SpringBootRndApplication in 19.981 seconds (JVM running for 21.924)
+[INFO ] 2023-05-15 00:01:15.980 [http-nio-8081-exec-1] JwtRequestFilter - not applying custom filter to: /api/v1/auth/login
+[INFO ] 2023-05-15 00:01:34.784 [http-nio-8081-exec-2] JwtRequestFilter - doFilterInternal path: /api/v1/user
+[INFO ] 2023-05-15 00:01:36.610 [http-nio-8081-exec-2] JwtRequestFilter - JwtRequestFilter: doFilterInternal jwtToken-> eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJvcmlzaGEiLCJleHAiOjE2ODQwODczOTYsInR5cGUiOiJhY2Nlc3MiLCJpYXQiOjE2ODQwODcyNzZ9.bhWbWjwqnn4MLQjMLdYi_Q6Y8IUUSsr8KTHmDy8A6RqQXTGOiT6JbEF7Gm_GvbGL-0kwwN-3UWwhXnbIIIlMFA
+[INFO ] 2023-05-15 00:01:36.639 [http-nio-8081-exec-2] JwtRequestFilter - Valid JWT Token In Header username: orisha
+[INFO ] 2023-05-15 00:01:36.639 [http-nio-8081-exec-2] JwtRequestFilter - token type: access
+[WARN ] 2023-05-15 00:01:36.639 [http-nio-8081-exec-2] JwtRequestFilter - exceptionOccurred false
+[INFO ] 2023-05-15 00:01:36.639 [http-nio-8081-exec-2] JwtRequestFilter - Handling request with access token
+[INFO ] 2023-05-15 00:02:15.527 [SpringApplicationShutdownHook] HikariDataSource - HikariPool-1 - Shutdown initiated...
+[INFO ] 2023-05-15 00:02:19.139 [SpringApplicationShutdownHook] HikariDataSource - HikariPool-1 - Shutdown completed.
