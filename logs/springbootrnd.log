@@ -1,0 +1,21 @@
+[INFO ] 2023-05-14 23:42:36.726 [SpringApplicationShutdownHook] HikariDataSource - HikariPool-1 - Shutdown initiated...
+[INFO ] 2023-05-14 23:42:40.962 [SpringApplicationShutdownHook] HikariDataSource - HikariPool-1 - Shutdown completed.
+[INFO ] 2023-05-14 23:42:48.800 [restartedMain] SpringBootRndApplication - Starting SpringBootRndApplication using Java 11.0.8 on Asifs-MacBook-Pro.local with PID 6515 (/Users/asif/My_Mac_New/Spring Boot/spring-boot-rnd/target/classes started by asif in /Users/asif/My_Mac_New/Spring Boot/spring-boot-rnd)
+[INFO ] 2023-05-14 23:42:48.803 [restartedMain] SpringBootRndApplication - No active profile set, falling back to 1 default profile: "default"
+[INFO ] 2023-05-14 23:42:50.733 [restartedMain] HikariDataSource - HikariPool-1 - Starting...
+[INFO ] 2023-05-14 23:42:52.196 [restartedMain] HikariDataSource - HikariPool-1 - Start completed.
+[INFO ] 2023-05-14 23:42:58.059 [restartedMain] SpringBootRndApplication - Started SpringBootRndApplication in 9.606 seconds (JVM running for 16.159)
+[INFO ] 2023-05-14 23:43:11.023 [http-nio-8081-exec-1] JwtRequestFilter - doFilterInternal path: /swagger-ui/index.html
+[WARN ] 2023-05-14 23:43:11.023 [http-nio-8081-exec-1] JwtRequestFilter - No JWT Token In Header
+[INFO ] 2023-05-14 23:43:11.023 [http-nio-8081-exec-1] JwtRequestFilter - JwtRequestFilter: doFilterInternal jwtToken-> null
+[WARN ] 2023-05-14 23:43:11.043 [http-nio-8081-exec-1] JwtRequestFilter - Unable to get JWT Token or Token is blacklisted
+[WARN ] 2023-05-14 23:43:11.043 [http-nio-8081-exec-1] JwtRequestFilter - exceptionOccurred true
+[INFO ] 2023-05-14 23:43:11.227 [http-nio-8081-exec-2] JwtRequestFilter - not applying custom filter to: /v3/api-docs/swagger-config
+[INFO ] 2023-05-14 23:43:11.290 [http-nio-8081-exec-3] JwtRequestFilter - not applying custom filter to: /v3/api-docs
+[INFO ] 2023-05-14 23:43:27.486 [http-nio-8081-exec-4] JwtRequestFilter - not applying custom filter to: /api/v1/auth/login
+[INFO ] 2023-05-14 23:43:44.201 [http-nio-8081-exec-5] JwtRequestFilter - doFilterInternal path: /api/v1/user
+[INFO ] 2023-05-14 23:43:50.329 [http-nio-8081-exec-5] JwtRequestFilter - JwtRequestFilter: doFilterInternal jwtToken-> eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJvcmlzaGEiLCJleHAiOjE2ODQwODYzMjgsInR5cGUiOiJhY2Nlc3MiLCJpYXQiOjE2ODQwODYyMDh9.ZBYtgyE4wFcj9vtk8zwWteY9AWBmSFgGrcrkARZjuVIfSWsn5Arkli-pClrV4S2ytdhOpplgKFLZ72o6ZXidCQ
+[INFO ] 2023-05-14 23:43:50.341 [http-nio-8081-exec-5] JwtRequestFilter - Valid JWT Token In Header username: orisha
+[INFO ] 2023-05-14 23:43:50.341 [http-nio-8081-exec-5] JwtRequestFilter - token type: access
+[WARN ] 2023-05-14 23:43:50.341 [http-nio-8081-exec-5] JwtRequestFilter - exceptionOccurred false
+[INFO ] 2023-05-14 23:43:50.341 [http-nio-8081-exec-5] JwtRequestFilter - Handling request with access token
