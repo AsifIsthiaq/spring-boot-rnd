@@ -53,12 +53,12 @@
         "appender-ref": [
           {
             "ref": "SpringBootRndLog",
-            "level":"debug"
+            "level":"info"
           }
         ]
       },
       "root": {
-        "level": "debug",
+        "level": "info",
         "appender-ref": {
           "ref": "ConsoleAppender"
         }
