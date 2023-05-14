@@ -1,4 +1,4 @@
-package com.springdemo.springbootrnd.config;
+package com.springdemo.springbootrnd.security;
 
 import com.springdemo.springbootrnd.services.CustomUserDetailsService;
 import com.springdemo.springbootrnd.util.JwtRequestFilter;

@@ -1,4 +1,4 @@
-package com.springdemo.springbootrnd.config;
+package com.springdemo.springbootrnd.security;
 
 import java.io.IOException;
 import java.io.Serializable;

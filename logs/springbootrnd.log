@@ -1362,3 +1362,59 @@ org.postgresql.util.PSQLException: FATAL: too many connections for role "rzumhkc
 [INFO ] 2023-05-14 10:30:00.736 [http-nio-8081-exec-7] JwtRequestFilter - Handling request with access token
 [INFO ] 2023-05-14 10:30:21.281 [SpringApplicationShutdownHook] HikariDataSource - HikariPool-1 - Shutdown initiated...
 [INFO ] 2023-05-14 10:30:23.778 [SpringApplicationShutdownHook] HikariDataSource - HikariPool-1 - Shutdown completed.
+[INFO ] 2023-05-14 23:23:32.365 [restartedMain] SpringBootRndApplication - Starting SpringBootRndApplication using Java 11.0.8 on Asifs-MacBook-Pro.local with PID 6191 (/Users/asif/My_Mac_New/Spring Boot/spring-boot-rnd/target/classes started by asif in /Users/asif/My_Mac_New/Spring Boot/spring-boot-rnd)
+[INFO ] 2023-05-14 23:23:32.369 [restartedMain] SpringBootRndApplication - No active profile set, falling back to 1 default profile: "default"
+[INFO ] 2023-05-14 23:23:35.453 [restartedMain] HikariDataSource - HikariPool-1 - Starting...
+[INFO ] 2023-05-14 23:23:37.087 [restartedMain] HikariDataSource - HikariPool-1 - Start completed.
+[INFO ] 2023-05-14 23:23:47.591 [restartedMain] SpringBootRndApplication - Started SpringBootRndApplication in 15.609 seconds (JVM running for 22.242)
+[INFO ] 2023-05-14 23:25:23.981 [http-nio-8081-exec-1] JwtRequestFilter - not applying custom filter to: /
+[INFO ] 2023-05-14 23:25:24.296 [http-nio-8081-exec-2] JwtRequestFilter - doFilterInternal path: /swagger-ui/index.html
+[WARN ] 2023-05-14 23:25:24.296 [http-nio-8081-exec-2] JwtRequestFilter - No JWT Token In Header
+[INFO ] 2023-05-14 23:25:24.296 [http-nio-8081-exec-2] JwtRequestFilter - JwtRequestFilter: doFilterInternal jwtToken-> null
+[WARN ] 2023-05-14 23:25:24.321 [http-nio-8081-exec-2] JwtRequestFilter - Unable to get JWT Token or Token is blacklisted
+[WARN ] 2023-05-14 23:25:24.321 [http-nio-8081-exec-2] JwtRequestFilter - exceptionOccurred true
+[INFO ] 2023-05-14 23:25:24.976 [http-nio-8081-exec-3] JwtRequestFilter - not applying custom filter to: /v3/api-docs/swagger-config
+[INFO ] 2023-05-14 23:25:25.111 [http-nio-8081-exec-4] JwtRequestFilter - doFilterInternal path: /apple-touch-icon-precomposed.png
+[WARN ] 2023-05-14 23:25:25.111 [http-nio-8081-exec-4] JwtRequestFilter - No JWT Token In Header
+[INFO ] 2023-05-14 23:25:25.111 [http-nio-8081-exec-4] JwtRequestFilter - JwtRequestFilter: doFilterInternal jwtToken-> null
+[WARN ] 2023-05-14 23:25:25.112 [http-nio-8081-exec-4] JwtRequestFilter - Unable to get JWT Token or Token is blacklisted
+[WARN ] 2023-05-14 23:25:25.112 [http-nio-8081-exec-4] JwtRequestFilter - exceptionOccurred true
+[INFO ] 2023-05-14 23:25:25.179 [http-nio-8081-exec-5] JwtRequestFilter - not applying custom filter to: /v3/api-docs
+[INFO ] 2023-05-14 23:25:25.326 [http-nio-8081-exec-6] JwtRequestFilter - doFilterInternal path: /apple-touch-icon.png
+[WARN ] 2023-05-14 23:25:25.326 [http-nio-8081-exec-6] JwtRequestFilter - No JWT Token In Header
+[INFO ] 2023-05-14 23:25:25.326 [http-nio-8081-exec-6] JwtRequestFilter - JwtRequestFilter: doFilterInternal jwtToken-> null
+[WARN ] 2023-05-14 23:25:25.326 [http-nio-8081-exec-6] JwtRequestFilter - Unable to get JWT Token or Token is blacklisted
+[WARN ] 2023-05-14 23:25:25.326 [http-nio-8081-exec-6] JwtRequestFilter - exceptionOccurred true
+[INFO ] 2023-05-14 23:25:25.349 [http-nio-8081-exec-7] JwtRequestFilter - doFilterInternal path: /swagger-ui/favicon-32x32.png
+[INFO ] 2023-05-14 23:25:25.349 [http-nio-8081-exec-8] JwtRequestFilter - doFilterInternal path: /swagger-ui/favicon-16x16.png
+[WARN ] 2023-05-14 23:25:25.349 [http-nio-8081-exec-7] JwtRequestFilter - No JWT Token In Header
+[WARN ] 2023-05-14 23:25:25.349 [http-nio-8081-exec-8] JwtRequestFilter - No JWT Token In Header
+[INFO ] 2023-05-14 23:25:25.349 [http-nio-8081-exec-7] JwtRequestFilter - JwtRequestFilter: doFilterInternal jwtToken-> null
+[INFO ] 2023-05-14 23:25:25.349 [http-nio-8081-exec-8] JwtRequestFilter - JwtRequestFilter: doFilterInternal jwtToken-> null
+[WARN ] 2023-05-14 23:25:25.349 [http-nio-8081-exec-8] JwtRequestFilter - Unable to get JWT Token or Token is blacklisted
+[WARN ] 2023-05-14 23:25:25.349 [http-nio-8081-exec-7] JwtRequestFilter - Unable to get JWT Token or Token is blacklisted
+[WARN ] 2023-05-14 23:25:25.349 [http-nio-8081-exec-8] JwtRequestFilter - exceptionOccurred true
+[WARN ] 2023-05-14 23:25:25.349 [http-nio-8081-exec-7] JwtRequestFilter - exceptionOccurred true
+[INFO ] 2023-05-14 23:25:31.170 [http-nio-8081-exec-9] JwtRequestFilter - not applying custom filter to: /health/status
+[INFO ] 2023-05-14 23:30:08.935 [SpringApplicationShutdownHook] HikariDataSource - HikariPool-1 - Shutdown initiated...
+[INFO ] 2023-05-14 23:30:11.507 [SpringApplicationShutdownHook] HikariDataSource - HikariPool-1 - Shutdown completed.
+[INFO ] 2023-05-14 23:32:05.543 [restartedMain] SpringBootRndApplication - Starting SpringBootRndApplication using Java 11.0.8 on Asifs-MacBook-Pro.local with PID 6303 (/Users/asif/My_Mac_New/Spring Boot/spring-boot-rnd/target/classes started by asif in /Users/asif/My_Mac_New/Spring Boot/spring-boot-rnd)
+[INFO ] 2023-05-14 23:32:05.546 [restartedMain] SpringBootRndApplication - No active profile set, falling back to 1 default profile: "default"
+[INFO ] 2023-05-14 23:32:07.814 [restartedMain] HikariDataSource - HikariPool-1 - Starting...
+[INFO ] 2023-05-14 23:32:09.263 [restartedMain] HikariDataSource - HikariPool-1 - Start completed.
+[INFO ] 2023-05-14 23:32:16.075 [restartedMain] SpringBootRndApplication - Started SpringBootRndApplication in 10.906 seconds (JVM running for 17.263)
+[INFO ] 2023-05-14 23:32:34.643 [http-nio-8081-exec-1] JwtRequestFilter - doFilterInternal path: /swagger-ui/index.html
+[WARN ] 2023-05-14 23:32:34.643 [http-nio-8081-exec-1] JwtRequestFilter - No JWT Token In Header
+[INFO ] 2023-05-14 23:32:34.644 [http-nio-8081-exec-1] JwtRequestFilter - JwtRequestFilter: doFilterInternal jwtToken-> null
+[WARN ] 2023-05-14 23:32:34.660 [http-nio-8081-exec-1] JwtRequestFilter - Unable to get JWT Token or Token is blacklisted
+[WARN ] 2023-05-14 23:32:34.661 [http-nio-8081-exec-1] JwtRequestFilter - exceptionOccurred true
+[INFO ] 2023-05-14 23:32:35.047 [http-nio-8081-exec-2] JwtRequestFilter - not applying custom filter to: /v3/api-docs/swagger-config
+[INFO ] 2023-05-14 23:32:35.135 [http-nio-8081-exec-3] JwtRequestFilter - not applying custom filter to: /v3/api-docs
+[INFO ] 2023-05-14 23:32:38.461 [http-nio-8081-exec-4] JwtRequestFilter - not applying custom filter to: /health/status
+[INFO ] 2023-05-14 23:33:01.857 [http-nio-8081-exec-5] JwtRequestFilter - not applying custom filter to: /api/v1/auth/login
+[INFO ] 2023-05-14 23:34:33.597 [http-nio-8081-exec-7] JwtRequestFilter - doFilterInternal path: /api/v1/user
+[INFO ] 2023-05-14 23:34:39.755 [http-nio-8081-exec-7] JwtRequestFilter - JwtRequestFilter: doFilterInternal jwtToken-> eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhc2lmIiwiZXhwIjoxNjg0MDg1NzAyLCJ0eXBlIjoiYWNjZXNzIiwiaWF0IjoxNjg0MDg1NTgyfQ.N3diWyZZ20eQcU50g8CTiT9TANHvuy7I2FWYUhClO5rSzdJkCFjPjd-Xqz4gh1x6QpJvITFz18IkSoykLT_wyQ
+[INFO ] 2023-05-14 23:34:39.765 [http-nio-8081-exec-7] JwtRequestFilter - Valid JWT Token In Header username: asif
+[INFO ] 2023-05-14 23:34:39.765 [http-nio-8081-exec-7] JwtRequestFilter - token type: access
+[WARN ] 2023-05-14 23:34:39.765 [http-nio-8081-exec-7] JwtRequestFilter - exceptionOccurred false
+[INFO ] 2023-05-14 23:34:39.765 [http-nio-8081-exec-7] JwtRequestFilter - Handling request with access token
