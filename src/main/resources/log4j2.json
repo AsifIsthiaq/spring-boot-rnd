@@ -1,0 +1,68 @@
+{
+  "configuration": {
+    "name": "SpringBootRnd",
+    "properties": {
+      "property": [
+        {
+          "name": "log-path",
+          "value": "logs"
+        },
+        {
+          "name": "archive-path",
+          "value": "${log-path}/archive"
+        },
+        {
+          "name": "log-pattern",
+          "value": "[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n"
+        }
+      ]
+    },
+    "appenders": {
+      "Console": {
+        "name": "ConsoleAppender",
+        "target": "SYSTEM_OUT",
+        "follow": "true",
+        "PatternLayout": {
+          "pattern": "${log-pattern}"
+        }
+      },
+      "RollingFile": {
+        "name": "SpringBootRndLog",
+        "fileName": "${log-path}/springbootrnd.log",
+        "filePattern": "${archive-path}/springbootrnd.log-%d{yyyy-MM-dd}-%i.log",
+        "PatternLayout": {
+          "pattern": "${log-pattern}"
+        },
+        "Policies": {
+          "TimeBasedTriggeringPolicy": {
+            "interval": "7",
+            "modulate": "true"
+          }
+        },
+        "DefaultRolloverStrategy": {
+          "max": "30"
+        }
+      }
+    },
+
+    "loggers": {
+      "logger": {
+        "name": "com",
+        "level": "info",
+        "additivity": "false",
+        "appender-ref": [
+          {
+            "ref": "SpringBootRndLog",
+            "level":"debug"
+          }
+        ]
+      },
+      "root": {
+        "level": "debug",
+        "appender-ref": {
+          "ref": "ConsoleAppender"
+        }
+      }
+    }
+  }
+}
